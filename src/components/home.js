@@ -1,6 +1,6 @@
 import { Component } from "react";
 import api from "../api/api";
-import { pagination } from "../utils/common";
+import { pagination, getDomainUrl } from "../utils/common";
 
 class Home extends Component {
   constructor(props) {
@@ -56,13 +56,36 @@ class Home extends Component {
   };
 
   render() {
-    const { storiesData, pageNumber } = this.state;
+    const { storiesData, pageNumber, pageSize } = this.state;
 
     return (
       <div className="col-xs-12">
         {storiesData !== [] &&
           storiesData.map((story, index) => {
-            return <div key={`${story.id}_${index}`}>{story.title}</div>;
+            return (
+              <div key={`${story.id}_${index}`}>
+                <div>
+                  <span>
+                    {`${
+                      pageNumber === 1
+                        ? index + 1
+                        : pageNumber === 2
+                        ? pageSize + index + 1
+                        : pageSize * pageNumber + index + 1
+                    }. `}
+                  </span>
+                  <span>
+                    <a href={story.url} target="_blank">
+                      {story.title}
+                    </a>
+                  </span>
+                  <span>{story.url && ` (${getDomainUrl(story.url)})`}</span>
+                </div>
+                <div>
+                  <span>{`${story.score} point by ${story.by}`}</span>
+                </div>
+              </div>
+            );
           })}
         <div className="d-flex">
           {pageNumber !== 1 && (
