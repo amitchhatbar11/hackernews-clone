@@ -1,6 +1,7 @@
 import { Component } from "react";
 import api from "../api/api";
 import { pagination, getDomainUrl } from "../utils/common";
+import LoaderComponent from "../utils/LoaderComponent";
 
 class Home extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class Home extends Component {
       pageNumber: 1,
       pageSize: 20,
       storiesData: [],
+      loading: true,
     };
   }
 
@@ -39,6 +41,7 @@ class Home extends Component {
     Promise.all(promises).then((response) => {
       this.setState({
         storiesData: response,
+        loading: false,
       });
     });
   };
@@ -47,54 +50,78 @@ class Home extends Component {
     if (pageDirection === "next") {
       this.setState((prevState) => ({
         pageNumber: prevState.pageNumber + 1,
+        loading: true,
       }));
     } else {
       this.setState((prevState) => ({
         pageNumber: prevState.pageNumber - 1,
+        loading: true,
       }));
     }
   };
 
   render() {
-    const { storiesData, pageNumber, pageSize } = this.state;
+    const { storiesData, pageNumber, pageSize, loading } = this.state;
 
     return (
       <div className="col-xs-12">
-        {storiesData !== [] &&
-          storiesData.map((story, index) => {
-            return (
-              <div key={`${story.id}_${index}`}>
-                <div>
-                  <span>
-                    {`${
-                      pageNumber === 1
-                        ? index + 1
-                        : pageNumber === 2
-                        ? pageSize + index + 1
-                        : pageSize * pageNumber + index + 1
-                    }. `}
-                  </span>
-                  <span>
-                    <a href={story.url} target="_blank">
-                      {story.title}
-                    </a>
-                  </span>
-                  <span>{story.url && ` (${getDomainUrl(story.url)})`}</span>
-                </div>
-                <div>
-                  <span>{`${story.score} point by ${story.by}`}</span>
-                </div>
-              </div>
-            );
-          })}
-        <div className="d-flex">
-          {pageNumber !== 1 && (
-            <button onClick={() => this.nextOrPreviousPage("previous")}>
-              Previous
-            </button>
-          )}
-          <button onClick={() => this.nextOrPreviousPage("next")}>Next</button>
-        </div>
+        {!loading ? (
+          <div>
+            {storiesData !== [] &&
+              storiesData.map((story, index) => {
+                return (
+                  <div className="pb-2" key={`${story.id}_${index}`}>
+                    <div>
+                      <span>
+                        {`${
+                          pageNumber === 1
+                            ? index + 1
+                            : pageNumber === 2
+                            ? pageSize + index + 1
+                            : pageSize * pageNumber + index + 1
+                        }. `}
+                      </span>
+                      <span>
+                        <a
+                          href={story.url}
+                          target="_blank"
+                          className="text-decoration-none text-dark fs-14"
+                        >
+                          {story.title}
+                        </a>
+                      </span>
+                      <span className="meta-data">
+                        {story.url && ` (${getDomainUrl(story.url)})`}
+                      </span>
+                    </div>
+                    <div className="user-story-info">
+                      <span className="meta-data">{`${story.score} point by ${story.by}`}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            <div className="d-flex">
+              {pageNumber !== 1 && (
+                <button
+                  className=""
+                  onClick={() => this.nextOrPreviousPage("previous")}
+                >
+                  Previous
+                </button>
+              )}
+              <button
+                className="next-btn"
+                onClick={() => this.nextOrPreviousPage("next")}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="loader">
+            <LoaderComponent />
+          </div>
+        )}
       </div>
     );
   }

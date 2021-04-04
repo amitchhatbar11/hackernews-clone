@@ -1,0 +1,24 @@
+@import "typography";
+
+.meta-data {
+  color: $gray;
+  @extend .fs-11;
+}
+
+.user-story-info {
+  margin-top: -10px;
+  margin-left: 16px;
+}
+
+.loader {
+  height: 100%;
+  width: 100%;
+  margin-top: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.next-btn {
+  margin-left: 10px;
+}
