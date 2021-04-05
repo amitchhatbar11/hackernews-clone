@@ -17,3 +17,10 @@ export const getKeyValue = (e) => {
 export const getTimeFromNow = (time) => {
   return moment(moment.utc(time * 1000).format()).fromNow();
 };
+
+export const checkUserLoggedin = () => {
+  return (
+    localStorage.getItem("loggedin") === "true" &&
+    localStorage.getItem("username") !== ""
+  );
+};

@@ -1,3 +1,5 @@
+import { checkUserLoggedin } from "../utils/common";
+
 const { Link, withRouter } = require("react-router-dom");
 
 const Header = ({ history }) => {
@@ -29,8 +31,7 @@ const Header = ({ history }) => {
               )}
             </td>
             <td className="text-right">
-              {localStorage.getItem("username") &&
-              localStorage.getItem("loggedin") === "true" ? (
+              {checkUserLoggedin() ? (
                 localStorage.getItem("username")
               ) : (
                 <Link className="text-decoration-none text-dark" to="login">
