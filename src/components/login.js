@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { getKeyValue } from "../utils/common";
 
 class Login extends Component {
   constructor() {
@@ -13,7 +14,7 @@ class Login extends Component {
   }
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState(getKeyValue(e));
   };
 
   onClickRegisterOrLogin = (methodName) => {
@@ -58,24 +59,24 @@ class Login extends Component {
             <form>
               <h1 className="h3 mb-3 font-weight-normal">Login</h1>
               <div>
-                <label htmlFor="email">Username</label>
+                <label htmlFor="usernameLogin">Username</label>
                 <input
-                  type="email"
+                  type="text"
                   className="form-control"
                   name="usernameLogin"
                   placeholder="Enter Username"
-                  value={this.state.email}
+                  value={this.state.usernameLogin}
                   onChange={this.onChange}
                 />
               </div>
               <div>
-                <label htmlFor="password">Password</label>
+                <label htmlFor="passwordLogin">Password</label>
                 <input
                   type="password"
                   className="form-control"
                   name="passwordLogin"
                   placeholder="Enter Password"
-                  value={this.state.password}
+                  value={this.state.passwordLogin}
                   onChange={this.onChange}
                 />
               </div>
@@ -89,24 +90,24 @@ class Login extends Component {
             <form className="pt-5">
               <h1 className="h3 mb-3 font-weight-normal">Create Account</h1>
               <div>
-                <label htmlFor="email">Username</label>
+                <label htmlFor="usernameRegister">Username</label>
                 <input
                   type="text"
                   className="form-control"
                   name="usernameRegister"
                   placeholder="Enter Username"
-                  value={this.state.email}
+                  value={this.state.usernameRegister}
                   onChange={this.onChange}
                 />
               </div>
               <div>
-                <label htmlFor="password">Password</label>
+                <label htmlFor="passwordRegister">Password</label>
                 <input
                   type="password"
                   className="form-control"
                   name="passwordRegister"
                   placeholder="Enter Password"
-                  value={this.state.password}
+                  value={this.state.passwordRegister}
                   onChange={this.onChange}
                 />
               </div>

@@ -7,3 +7,7 @@ export const getDomainUrl = (url) => {
   location.href = url;
   return location.hostname;
 };
+
+export const getKeyValue = (e) => {
+  return { [e.target.name]: e.target.value };
+};
