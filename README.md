@@ -2,7 +2,11 @@
 
 ### For this project to run, you need to have Node installed on your machine.
 
-In the project directory, you can run:
+To install dependency, please run:
+
+### `npm install`
+
+And then to start the app, you can run:
 
 ### `npm start`
 
