@@ -1,6 +1,6 @@
 import { Component } from "react";
 import api from "../api/api";
-import { pagination, getDomainUrl } from "../utils/common";
+import { pagination, getDomainUrl, getTimeFromNow } from "../utils/common";
 import LoaderComponent from "../utils/LoaderComponent";
 
 class Home extends Component {
@@ -95,7 +95,9 @@ class Home extends Component {
                       </span>
                     </div>
                     <div className="user-story-info">
-                      <span className="meta-data">{`${story.score} point by ${story.by}`}</span>
+                      <span className="meta-data">{`${story.score} point by ${
+                        story.by
+                      } ${getTimeFromNow(story.time)}.`}</span>
                     </div>
                   </div>
                 );
