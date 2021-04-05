@@ -6,6 +6,7 @@ const App = () => {
   return (
     <div>
       <Router>
+        {/* Layout structure so that Header section can stay common in any page. */}
         <Layout>
           <Routes />
         </Layout>

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import article from "./components/article";
-const { Switch, Route } = require("react-router-dom");
+import Page404 from "./components/Page404";
+const { Switch, Route, Redirect } = require("react-router-dom");
 const { Home } = require("./components/home");
 const { default: login } = require("./components/login");
 
@@ -15,7 +16,9 @@ const Routes = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={login} />
-        <Route exact path="/submit" component={article} />1
+        <Route exact path="/submit" component={article} />
+        <Route exact path="/404" component={Page404} />
+        <Redirect from="*" to="/404" />
       </Switch>
     </div>
   );

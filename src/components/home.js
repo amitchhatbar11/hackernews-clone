@@ -120,7 +120,7 @@ class Home extends Component {
             </div>
           </div>
         ) : (
-          <div className="loader">
+          <div className="make-it-center">
             <LoaderComponent />
           </div>
         )}
